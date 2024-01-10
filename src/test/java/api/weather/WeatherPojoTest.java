@@ -1,4 +1,4 @@
-package api.Weather;
+package api.weather;
 
 import static io.restassured.RestAssured.given;
 
@@ -33,36 +33,13 @@ public class WeatherPojoTest {
      Негативный тест:
      1. Получить 4 варианта ошибок из списка API Errors (на выбор), сравнить с ожидаемым результатом.
      */
-
-
-    enum City {
-
-        NEW_YORK("New York"),
-        MOSCOW("Moscow"),
-        ROME("Rome"),
-        TOKIO("Tokio");
-
-
-        public String name;
-
-        public String getName() {
-            return name;
-        }
-
-        City(String name) {
-            this.name = name;
-        }
-
-    }
-
-
     @Test
     @DisplayName("Получить ошибку 101")
     public void checkStatus101Test(){
 
         Response response = given()
                 .when()
-                .get(String.format(URL + "current?access_key=&query=%s", City.MOSCOW.getName()))
+                .get(String.format(URL + "current?access_key=&query=%s", City.MOSCOW.getValue()))
                 .then()
                 .log().all()
                 .extract().response();
@@ -79,10 +56,10 @@ public class WeatherPojoTest {
     @DisplayName("Получить ошибку 105")
     public void checkStatus105Test(){
 
-        URL = "https://api.weatherstack.com/";
+        String urlHttps = "https://api.weatherstack.com/";
         Response response = given()
             .when()
-            .get(String.format(URL + "current?access_key=&query=%s", City.MOSCOW.getName()))
+            .get(String.format(urlHttps + "current?access_key=&query=%s", City.MOSCOW.getValue()))
             .then()
             .log().all()
             .extract().response();
@@ -101,7 +78,7 @@ public class WeatherPojoTest {
 
         Response response = given()
             .when()
-            .get(String.format(URL + "current?access_key=%s&query=%s", accessKey, City.MOSCOW.getName()))
+            .get(String.format(URL + "current?access_key=%s&query=%s", accessKey, City.MOSCOW.getValue()))
             .then()
             .log().all()
             .extract().response();
@@ -120,7 +97,7 @@ public class WeatherPojoTest {
     @DisplayName("Запросить текущую погоду по конкретному городу")
     public void checkAvatarContainsIdTest(City cityName){
         Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecOK200());
-        
+
         Response response = given()
             .when()
             .get(String.format("current?access_key=%s&query=%s", accessKey, cityName))
@@ -141,11 +118,11 @@ public class WeatherPojoTest {
         Assertions.assertEquals(jsonPath.get("location.utc_offset"), utcOffset);
 
 
-        Assertions.assertEquals(jsonPath.get("location.name"), cityName.getName());
+        Assertions.assertEquals(jsonPath.get("location.name"), cityName.getValue());
         Allure.step("Название города совпадает с заданным");
 
 
-        Allure.step(String.format("Температура в городе %s : %s", cityName.getName(),
+        Allure.step(String.format("Температура в городе %s : %s", cityName.getValue(),
             jsonPath.get("current.temperature")));
 
         Assertions.assertEquals(jsonPath.get("location.localtime"), nowInNY);

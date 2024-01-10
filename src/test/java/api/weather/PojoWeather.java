@@ -1,6 +1,6 @@
-package api.Weather;
+package api.weather;
 
-public class POJOWeather {
+public class PojoWeather {
 
     private String name;
     private String observation_time;
@@ -8,7 +8,7 @@ public class POJOWeather {
     private Integer weather_code;
     private Integer wind_speed;
 
-    public POJOWeather(String name, String observation_time, Integer temperature, Integer weather_code,
+    public PojoWeather(String name, String observation_time, Integer temperature, Integer weather_code,
         Integer wind_speed) {
         this.name = name;
         this.observation_time = observation_time;
