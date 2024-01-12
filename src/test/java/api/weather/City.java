@@ -15,8 +15,8 @@ public enum City {
       return value;
     }
 
-    City(String name) {
-      this.value = name;
+    City(String value) {
+      this.value = value;
     }
 
 

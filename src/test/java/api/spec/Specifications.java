@@ -20,27 +20,12 @@ public class Specifications {
                 .expectStatusCode(200)
                 .build();
     }
-    public static ResponseSpecification responseSpecError400(){
-        return new ResponseSpecBuilder()
-                .expectStatusCode(400)
-                .build();
-    }
-    public static ResponseSpecification responseSpec(int status){
-        return new ResponseSpecBuilder()
-                .expectStatusCode(status)
-                .build();
-    }
+
     public static void installSpecification(RequestSpecification requestSpec, ResponseSpecification responseSpec){
         RestAssured.requestSpecification = requestSpec;
         RestAssured.responseSpecification = responseSpec;
     }
 
-    public static void installSpecification(RequestSpecification requestSpec){
-        RestAssured.requestSpecification =requestSpec;
-    }
-    public static void installSpecification(ResponseSpecification responseSpec){
-        RestAssured.responseSpecification =responseSpec;
-    }
 
 
 }

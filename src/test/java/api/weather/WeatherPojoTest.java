@@ -46,6 +46,7 @@ public class WeatherPojoTest {
 
         JsonPath jsonPath = response.jsonPath();
 
+        Assertions.assertEquals(101, (Integer) jsonPath.get("error.code"));
 
         Allure.step(String.format("Получена ошибка: %s, %s", jsonPath.get("error.code"),
             jsonPath.get("error.info")));
@@ -66,6 +67,7 @@ public class WeatherPojoTest {
 
         JsonPath jsonPath = response.jsonPath();
 
+        Assertions.assertEquals(105, (Integer) jsonPath.get("error.code"));
 
         Allure.step(String.format("Получена ошибка: %s, %s", jsonPath.get("error.code"),
             jsonPath.get("error.info")));
@@ -85,6 +87,27 @@ public class WeatherPojoTest {
 
         JsonPath jsonPath = response.jsonPath();
 
+        Assertions.assertEquals(404, (Integer) jsonPath.get("error.code"));
+
+        Allure.step(String.format("Получена ошибка: %s, %s", jsonPath.get("error.code"),
+            jsonPath.get("error.info")));
+
+    }
+
+    @Test
+    @DisplayName("Получить ошибку 404")
+    public void checkStatus615Test(){
+
+        Response response = given()
+            .when()
+            .get(String.format(URL + "current?access_key=%s&query=%s", accessKey, "Vj"))
+            .then()
+            .log().all()
+            .extract().response();
+
+        JsonPath jsonPath = response.jsonPath();
+
+        Assertions.assertEquals(615, (Integer) jsonPath.get("error.code"));
 
         Allure.step(String.format("Получена ошибка: %s, %s", jsonPath.get("error.code"),
             jsonPath.get("error.info")));
