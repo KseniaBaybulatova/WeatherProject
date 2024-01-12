@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 @DisplayName("Апи тесты с Pojo классами")
 @Feature("Api Weather Pojo")
-public class WeatherPojoTest {
+public class WeatherTest {
     private static String URL = "http://api.weatherstack.com/";
     private static String accessKey = "1f6067f5f58ec36fa0266c24ef3e3b50";
 
