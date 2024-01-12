@@ -1,4 +1,4 @@
-# WeatherPojoTest.java
+# WeatherTest.java
 Тесты находятся в этом классе
 
 
